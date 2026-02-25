@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none">
+  <rect width="800" height="800" fill="#F8F6F2"/>
+  <rect x="230" y="220" width="340" height="430" rx="28" fill="#6B4F3A"/>
+  <path d="M300 220V180C300 124 344 80 400 80C456 80 500 124 500 180V220" stroke="#4A3628" stroke-width="22" stroke-linecap="round"/>
+  <rect x="280" y="300" width="240" height="290" rx="16" fill="#7E5E45"/>
+  <text x="300" y="455" fill="#F8F6F2" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="4">ENSEMBLE</text>
+</svg>

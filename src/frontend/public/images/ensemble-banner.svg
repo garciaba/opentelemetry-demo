@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#F7F3EE"/>
+  <rect x="910" y="0" width="690" height="900" fill="#E5DDD1"/>
+  <rect x="990" y="120" width="420" height="660" rx="28" fill="#D2C2AE"/>
+  <rect x="1060" y="200" width="280" height="420" rx="20" fill="#B99875"/>
+  <rect x="120" y="170" width="620" height="560" rx="24" fill="#111827"/>
+  <text x="180" y="305" fill="#F9FAFB" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="700" letter-spacing="8">ENSEMBLE</text>
+  <text x="180" y="380" fill="#D1D5DB" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500">Spring / Summer Collection</text>
+  <text x="180" y="445" fill="#E5E7EB" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="400">Modern tailoring, elevated essentials,</text>
+  <text x="180" y="485" fill="#E5E7EB" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="400">and timeless silhouettes.</text>
+  <rect x="180" y="545" width="240" height="64" rx="10" fill="#B08B57"/>
+  <text x="232" y="586" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="600">SHOP NOW</text>
+</svg>
