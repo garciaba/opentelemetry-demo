@@ -88,7 +88,7 @@ def chat_completions():
     data = request.json
     messages = data.get('messages', [])
     stream = data.get('stream', False)
-    model = data.get('model', 'astronomy-llm')
+    model = data.get('model', 'ensemble-llm')
     tools = data.get('tools', None)
 
     app.logger.info(f"Received a chat completion request: '{messages}'")
@@ -196,10 +196,10 @@ def list_models():
         "object": "list",
         "data": [
             {
-                "id": "astronomy-llm",
+                "id": "ensemble-llm",
                 "object": "model",
                 "created": int(time.time()),
-                "owned_by": "astronomy-shop"
+                "owned_by": "ensemble"
             }
         ]
     })

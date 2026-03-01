@@ -1,0 +1,27 @@
+# ENSEMBLE docker-compose overrides
+# Switches OpenTelemetry Collector to Grafana Alloy and adds Grafana Cloud credentials
+
+services:
+  otel-collector:
+    image: grafana/alloy:latest
+    command: ["run", "--config.format=alloy", "/etc/otelcol-config.alloy"]
+    volumes:
+      - ${HOST_FILESYSTEM}:/hostfs:ro
+      - ${DOCKER_SOCK}:/var/run/docker.sock:ro
+      - ./src/otel-collector/otelcol-config.alloy:/etc/otelcol-config.alloy
+      - ${OTEL_COLLECTOR_CONFIG_EXTRAS}:/etc/otelcol-config-extras.yml
+    environment:
+      - FRONTEND_PROXY_ADDR
+      - IMAGE_PROVIDER_HOST
+      - IMAGE_PROVIDER_PORT
+      - HOST_FILESYSTEM
+      - OTEL_COLLECTOR_HOST
+      - OTEL_COLLECTOR_PORT_GRPC
+      - OTEL_COLLECTOR_PORT_HTTP
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_PASSWORD
+      - GOMEMLIMIT=160MiB
+      - GRAFANA_CLOUD_INSTANCE_ID
+      - GRAFANA_CLOUD_API_TOKEN
+      - GRAFANA_CLOUD_OTLP_ENDPOINT

@@ -1,0 +1,72 @@
+// ENSEMBLE OpenTelemetry Collector - Grafana Alloy native configuration
+// Exports telemetry to Grafana Cloud via OTLP
+
+// ─── Authentication ───────────────────────────────────────────────────────────
+otelcol.auth.basic "grafana_cloud" {
+  username = sys.env("GRAFANA_CLOUD_INSTANCE_ID")
+  password = sys.env("GRAFANA_CLOUD_API_TOKEN")
+}
+
+// ─── Receiver ─────────────────────────────────────────────────────────────────
+otelcol.receiver.otlp "default" {
+  grpc {
+    endpoint = "0.0.0.0:4317"
+  }
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+  output {
+    metrics = [otelcol.processor.memory_limiter.default.input]
+    logs    = [otelcol.processor.memory_limiter.default.input]
+    traces  = [otelcol.connector.host_info.default.input, otelcol.connector.spanmetrics.default.input, otelcol.processor.memory_limiter.default.input]
+  }
+}
+
+// ─── Connectors ───────────────────────────────────────────────────────────────
+
+// host_info connector: generates host.id resource attribute for Application Observability billing
+otelcol.connector.host_info "default" {
+  host_identifiers = ["host.name"]
+  output {
+    metrics = [otelcol.processor.memory_limiter.default.input]
+  }
+}
+
+// spanmetrics connector: generates RED metrics (rate, error, duration) from traces
+otelcol.connector.spanmetrics "default" {
+  histogram {
+    explicit {
+      buckets = ["2ms", "4ms", "6ms", "8ms", "10ms", "50ms", "100ms", "200ms", "400ms", "800ms", "1s", "1400ms", "2s", "5s", "10s", "15s"]
+    }
+  }
+  dimension {
+    name    = "http.method"
+    default = "GET"
+  }
+  dimension {
+    name = "http.status_code"
+  }
+  output {
+    metrics = [otelcol.processor.memory_limiter.default.input]
+  }
+}
+
+// ─── Processor ────────────────────────────────────────────────────────────────
+otelcol.processor.memory_limiter "default" {
+  limit             = "160MiB"
+  spike_limit       = "50MiB"
+  check_interval    = "5s"
+  output {
+    metrics = [otelcol.exporter.otlphttp.grafana_cloud.input]
+    logs    = [otelcol.exporter.otlphttp.grafana_cloud.input]
+    traces  = [otelcol.exporter.otlphttp.grafana_cloud.input]
+  }
+}
+
+// ─── Exporter ─────────────────────────────────────────────────────────────────
+otelcol.exporter.otlphttp "grafana_cloud" {
+  client {
+    endpoint = sys.env("GRAFANA_CLOUD_OTLP_ENDPOINT")
+    auth     = otelcol.auth.basic.grafana_cloud.handler
+  }
+}
